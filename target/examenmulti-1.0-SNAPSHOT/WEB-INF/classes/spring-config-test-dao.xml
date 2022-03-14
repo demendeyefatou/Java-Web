@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans SYSTEM "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <!-- la classe d'accès aux données -->
+    <bean id="articlesDao2" class="istia.st.articles.dao.ArticlesDaoSqlMap">
+        <constructor-arg index="0" value="sqlmap-config-firebird.xml"/>
+    </bean>
+</beans>

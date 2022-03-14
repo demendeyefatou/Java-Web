@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Articles">
+    <!-- un alias sur la classe istia.st.articles.dao.Article -->
+    <typeAlias alias="article" type="istia.st.articles.dao.Article"/>
+    <!-- le mapping ORM : ligne table ARTICLES - instance classe Article -->
+    <resultMap id="article" class="article">
+        <result property="id" column="ID"/>
+        <result property="nom" column="NOM"/>
+        <result property="prix" column="PRIX"/>
+        <result property="stockActuel" column="STOCKACTUEL"/>
+        <result property="stockMinimum" column="STOCKMINIMUM"/>
+    </resultMap>
+
+    <!-- la requête SQL pour obtenir tous les articles -->
+    <statement id="getAllArticles" resultMap="article"> select id, nom, prix,
+        stockactuel, stockminimum from ARTICLES
+    </statement>
+    <!-- la requête SQL pour supprimer tous les articles -->
+    <statement id="clearAllArticles">delete from ARTICLES</statement>
+    <!-- la requête SQL pour insérer un article -->
+    <statement id="insertArticle">
+        insert into ARTICLES (id, nom, prix, stockactuel, stockminimum) values (#id#,#nom#,#prix#,#stockactuel#,#stockminimum#)
+    </statement>
+    <!-- la requête SQL pour supprimer un article donné -->
+    <statement id="deleteArticle">delete FROM ARTICLES where id=#id#</statement>
+    <!-- la requête SQL pour modifier un article donné -->
+    <statement id="modifyArticle"> update ARTICLES set nom=#nom#,
+        prix=#prix#,stockactuel=#stockactuel#,stockminimum=#stockminimum# where id=#id#
+    </statement>
+    <!-- la requête SQL pour obtenir un article donné -->
+    <statement id="getArticleById" resultMap="article"> select id, nom, prix,
+        stockactuel, stockminimum FROM ARTICLES where id=#id#
+    </statement>
+    <!-- la requête SQL pour modifier le stock d'un article donné -->
+    <statement id="changerStockArticle"> update ARTICLES set stockActuel=stockActuel+#mouvement#
+        where id=#id# and stockActuel+#mouvement#&gt;=0
+    </statement>
+</sqlMap>
